@@ -1,0 +1,34 @@
+<h2 mat-dialog-title>Edit Project Info</h2>
+<mat-dialog-content class="mat-typography">
+  <h3>Name</h3>
+  <mat-form-field>
+    <input matInput type="text" [(ngModel)]="project.name">
+    <mat-hint>Name</mat-hint>
+  </mat-form-field>
+  <br>
+  <h3>Descriptions</h3>
+  <mat-form-field>
+    <input matInput type="text" [(ngModel)]="project.briefDescription">
+    <mat-hint>Brief Description</mat-hint>
+  </mat-form-field>
+  <br>
+  <mat-form-field>
+    <input matInput type="text" [(ngModel)]="project.description">
+    <mat-hint>Description</mat-hint>
+  </mat-form-field>
+  <br>
+  <h3>URLs</h3>
+  <button mat-button (click)="addUrl()">Add URL</button>
+  <div *ngFor="let url of project.urls; let i = index;">
+    <mat-form-field>
+      <input matInput type="text" [(ngModel)]="project.urls[i]">
+      <mat-hint>URL-{{i}}</mat-hint>
+      <button mat-button (click)="removeUrl(i)">Remove</button>
+    </mat-form-field>
+  </div>
+  <br>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="save()">Save</button>
+  <button mat-button (click)="close()">Close</button>
+</mat-dialog-actions>

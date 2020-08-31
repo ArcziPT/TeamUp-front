@@ -1,0 +1,25 @@
+<h2 mat-dialog-title>Create new Job Posting</h2>
+<mat-dialog-content class="mat-typography">
+  <h3>Posting title</h3>
+  <mat-form-field>
+    <input matInput type="text" [(ngModel)]="posting.title">
+  </mat-form-field>
+  <br>
+  <h3>Role name</h3>
+  <mat-form-field>
+    <input matInput type="text" [(ngModel)]="posting.role.name">
+  </mat-form-field>
+  <br>
+  <h3>Role description</h3>
+  <mat-form-field>
+    <input matInput type="text" [(ngModel)]="posting.role.description">
+  </mat-form-field>
+  <br>
+  <h3>Departments</h3>
+  <app-department-input [projectId]="id" [chosenDepartments]="chosenDepartments">
+  </app-department-input>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="save()">Save</button>
+  <button mat-button (click)="close()">Close</button>
+</mat-dialog-actions>

@@ -1,0 +1,42 @@
+<h2 mat-dialog-title>Edit User Info</h2>
+<mat-dialog-content class="mat-typography">
+  <h3>Name</h3>
+  <mat-form-field>
+    <input matInput type="text" [(ngModel)]="user.username">
+    <mat-hint>Name</mat-hint>
+  </mat-form-field>
+  <br>
+  <h3>Descriptions</h3>
+  <mat-form-field>
+    <input matInput type="text" [(ngModel)]="user.briefDescription">
+    <mat-hint>Brief Description</mat-hint>
+  </mat-form-field>
+  <br>
+  <mat-form-field>
+    <input matInput type="text" [(ngModel)]="user.description">
+    <mat-hint>Description</mat-hint>
+  </mat-form-field>
+  <br>
+  <h3>URLs</h3>
+  <button mat-button (click)="addUrl()">Add URL</button>
+  <div *ngFor="let url of user.urls; let i = index;">
+    <mat-form-field>
+      <input matInput type="text" [(ngModel)]="user.urls[i]">
+      <mat-hint>URL-{{i}}</mat-hint>
+      <button mat-button (click)="removeUrl(i)">Remove</button>
+    </mat-form-field>
+  </div>
+  <br>
+  <h3>Skills</h3>
+  <div *ngFor="let skill of user.urls; let i = index;">
+    <mat-form-field>
+      <input matInput type="text" [(ngModel)]="user.urls[i]">
+      <mat-hint>URL-{{i}}</mat-hint>
+      <button mat-button (click)="removeUrl(i)">Remove</button>
+    </mat-form-field>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="save()">Save</button>
+  <button mat-button (click)="close()">Close</button>
+</mat-dialog-actions>

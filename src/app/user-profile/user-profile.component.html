@@ -1,0 +1,94 @@
+<div class="container shift-down" *ngIf="user">
+  <div>
+    <mat-card>
+      <mat-card-title>
+        <p><strong>{{user.username}}</strong></p>
+      </mat-card-title>
+      <mat-card-content>
+        <p>{{user.briefDescription}}</p>
+        <mat-divider></mat-divider>
+        <mat-chip-list>
+          <mat-chip *ngFor="let skill of user.skills">{{skill}}</mat-chip>
+        </mat-chip-list>
+        <mat-divider></mat-divider>
+        <!-- TODO: urls -->
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-mini-fab color="primary" *ngIf="!isCurrentUser" [ngClass]="{'rated': isRated == true, 'not-rated': isRated == false}" (click)="rateUser()">
+          {{user.rating}}
+        </button>
+        <button mat-raised-button color="primary" *ngIf="!isCurrentUser" (click)="invite()">Invite</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+  <div class="horizontal-spacer"></div>
+  <div>
+    <mat-tab-group mat-align-tabs="center">
+      <mat-tab label="Info">
+        <mat-card>
+          <mat-card-title>
+            <p><strong>Information</strong></p>
+          </mat-card-title>
+          <mat-card-content>
+            <p>{{user.description}}</p>
+          </mat-card-content>
+        </mat-card>
+      </mat-tab>
+      <mat-tab label="Projects">
+        <button mat-button (click)="createProject()">Create Project</button>
+        <div fxLayout="row" fxLayout.xs="column" *ngIf="projects">
+          <mat-card fxFlex="40%;" fxFlex.xs="80%" *ngFor="let project of projects">
+            <mat-card-header>
+              <mat-card-title-group>
+                <mat-card-title>
+                  <a routerLink="/project/{{project.project.id}}">{{project.project.name}}</a>
+                </mat-card-title>
+                <mat-card-subtitle *ngIf="project.admin">
+                  <p>Admin</p>
+                </mat-card-subtitle>
+              </mat-card-title-group>
+              <div class="spacer"></div>
+            </mat-card-header>
+            <mat-card-content>
+              <h3>{{project.role.name}}</h3>
+              <p>{{project.role.description}}</p>
+              <mat-chip-list>
+                <mat-chip *ngFor="let dep of project.role.departments">
+                  <p>{{dep}}</p>
+                </mat-chip>
+              </mat-chip-list>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </mat-tab>
+      <mat-tab *ngIf="isCurrentUser" label="Invitations">
+        <div fxLayout="row" fxLayout.xs="column" *ngIf="invitations">
+          <mat-card fxFlex="40%;" fxFlex.xs="80%" *ngFor="let invitation of invitations; let i = index;">
+            <mat-card-header>
+              <mat-card-title-group>
+                <mat-card-title>
+                  <p>{{invitation.project.name}}</p>
+                </mat-card-title>
+                <mat-card-subtitle>
+                  <p>{{invitation.status}}</p>
+                </mat-card-subtitle>
+              </mat-card-title-group>
+              <div class="spacer"></div>
+              <button mat-raised-button color="primary" (click)="updateInvitationStatus(i, true)">Accept</button>
+              <button mat-raised-button color="primary" (click)="updateInvitationStatus(i, false)">Decline</button>
+            </mat-card-header>
+            <mat-card-content>
+              <h3>{{invitation.role.name}}</h3>
+              <p>{{invitation.role.description}}</p>
+              <mat-chip-list>
+                <mat-chip *ngFor="let dep of invitation.role.departments">
+                  <p>{{dep}}</p>
+                </mat-chip>
+              </mat-chip-list>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</div>

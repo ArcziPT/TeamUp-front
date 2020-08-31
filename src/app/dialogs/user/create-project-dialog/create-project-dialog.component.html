@@ -1,0 +1,39 @@
+<h2 mat-dialog-title>Create project</h2>
+<mat-dialog-content class="mat-typography">
+  <h3>Name</h3>
+  <mat-form-field>
+    <input matInput type="text" [(ngModel)]="project.name">
+    <mat-hint>Name</mat-hint>
+  </mat-form-field>
+  <br>
+  <h3>Description</h3>
+  <mat-form-field>
+    <input matInput type="text" [(ngModel)]="project.briefDescription">
+    <mat-hint>Brief Description</mat-hint>
+  </mat-form-field>
+  <br>
+  <mat-form-field>
+    <input matInput type="text" [(ngModel)]="project.description">
+    <mat-hint>Description</mat-hint>
+  </mat-form-field>
+  <br>
+  <h3>Your Role</h3>
+  <mat-form-field>
+    <mat-label>Role Name</mat-label>
+    <input matInput type="text" [(ngModel)]="project.role.name">
+  </mat-form-field>
+  <br>
+  <mat-form-field>
+    <mat-label>Description</mat-label>
+    <input matInput type="text" [(ngModel)]="project.role.description">
+  </mat-form-field>
+  <h3>Project's Departments</h3>
+  <app-create-departments [departments]="project.role.departments"></app-create-departments>
+  <br>
+  <h3>URLs</h3>
+  <app-url-edit [urls]="project.urls"></app-url-edit>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="save()">Save</button>
+  <button mat-button (click)="close()">Close</button>
+</mat-dialog-actions>

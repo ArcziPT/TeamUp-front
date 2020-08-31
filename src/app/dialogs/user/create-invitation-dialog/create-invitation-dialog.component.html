@@ -1,0 +1,35 @@
+<h2 mat-dialog-title>Create Invitation</h2>
+<mat-dialog-content class="mat-typography">
+  <mat-horizontal-stepper #stepper>
+    <mat-step #projectStep>
+      <ng-template matStepLabel>Choose Project</ng-template>
+      <app-project-selection [selectedProjects]="selectedProjects" [userId]="sessionManager.id"></app-project-selection>
+    </mat-step>
+    <mat-step #roleStep>
+      <ng-container *ngIf="projectStep.completed">
+        <ng-template matStepLabel>Create Role</ng-template>
+        <mat-form-field>
+          <mat-label>Role Name</mat-label>
+          <input matInput type="text" [(ngModel)]="roleName" placeholder="Role Name">
+        </mat-form-field>
+        <br>
+        <mat-form-field>
+          <mat-label>Description</mat-label>
+          <input matInput type="text" [(ngModel)]="description" placeholder="Description">
+        </mat-form-field>
+        <br>
+        <app-department-input [projectId]="selectedProjects[0].id" [chosenDepartments]="selectedDepartments"></app-department-input>
+      </ng-container>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Send</ng-template>
+      <div>
+        <button mat-button (click)="send()">Send</button>
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="next()">Next</button>
+  <button mat-button (click)="close()">Close</button>
+</mat-dialog-actions>

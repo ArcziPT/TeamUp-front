@@ -1,0 +1,123 @@
+<div class="container shift-down" *ngIf="project">
+  <div>
+    <mat-card>
+      <mat-card-title>
+        <p><strong>{{project.name}}</strong></p>
+      </mat-card-title>
+      <mat-card-content>
+        <p>{{project.briefDescription}}</p>
+        <!-- TODO: urls -->
+      </mat-card-content>
+      <mat-card-actions>
+        <button *ngIf="isAdmin" mat-raised-button color="primary" (click)="editInfo()">Edit</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+  <div class="horizontal-spacer"></div>
+  <div>
+    <mat-tab-group mat-align-tabs="center">
+      <mat-tab label="Info">
+        <mat-card>
+          <mat-card-title>
+            <p>Information</p>
+          </mat-card-title>
+          <mat-card-content>
+            <p>{{project.description}}</p>
+          </mat-card-content>
+        </mat-card>
+      </mat-tab>
+      <mat-tab label="Members">
+        <div fxLayout="row" fxLayout.xs="column" *ngIf="members">
+          <mat-card fxFlex="40%;" fxFlex.xs="80%" *ngFor="let member of members; let i = index;">
+            <mat-card-header>
+              <mat-card-title-group>
+                <mat-card-title>
+                  <a href="#" routerLink="/user/{{member.user.id}}">{{member.user.name}}</a>
+                </mat-card-title>
+                <mat-card-subtitle *ngIf="member.admin">
+                  <p>Admin</p>
+                </mat-card-subtitle>
+              </mat-card-title-group>
+              <div class="spacer"></div>
+              <button *ngIf="isAdmin" mat-raised-button color="primary" (click)="removeMember(i)">Remove</button>
+              <button *ngIf="isAdmin && !member.admin" mat-raised-button color="primary" (click)="makeAdmin(i)">Make Admin</button>
+            </mat-card-header>
+            <mat-card-content>
+              <h3>{{member.role.name}}</h3>
+              <p>{{member.role.description}}</p>
+              <mat-chip-list>
+                <mat-chip *ngFor="let dep of member.role.departments">
+                  <p>{{dep}}</p>
+                </mat-chip>
+              </mat-chip-list>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </mat-tab>
+      <mat-tab label="Looking For">
+        <button *ngIf="isAdmin" mat-button (click)="addPosting()">Add Posting</button>
+        <div fxLayout="row" fxLayout.xs="column" *ngIf="postings">
+          <mat-card fxFlex="40%;" fxFlex.xs="80%" *ngFor="let posting of postings; let i = index;">
+            <mat-card-header>
+              <mat-card-title-group>
+                <mat-card-title>
+                  <p>{{posting.posting.name}}</p>
+                </mat-card-title>
+                <mat-card-subtitle>
+                  <p>{{posting.applicationsCount}}</p>
+                </mat-card-subtitle>
+              </mat-card-title-group>
+              <div class="spacer"></div>
+              <button *ngIf="isAdmin" mat-raised-button color="primary" (click)="inspect(i)">Inspect</button>
+              <button *ngIf="isAdmin" mat-raised-button color="primary" (click)="removePosting(i)">Remove</button>
+              <button *ngIf="!isMember && !posting.hasApplied" mat-raised-button color="primary" (click)="apply(i)">Apply</button>
+            </mat-card-header>
+            <mat-card-content>
+              <h3>{{posting.role.name}}</h3>
+              <p>{{posting.role.description}}</p>
+              <mat-chip-list>
+                <mat-chip *ngFor="let dep of posting.role.departments">
+                  <p>{{dep}}</p>
+                </mat-chip>
+              </mat-chip-list>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </mat-tab>
+      <mat-tab *ngIf="isAdmin && departments" label="Departments">
+        <button mat-raised-button color="primary" (click)="addDepartment()">Add</button>
+        <mat-chip-list>
+          <mat-chip *ngFor="let dep of departments">
+            <p>{{dep.name}}</p>
+          </mat-chip>
+        </mat-chip-list>
+      </mat-tab>
+      <mat-tab *ngIf="isAdmin && invitations" label="Invitations">
+        <div fxLayout="row" fxLayout.xs="column">
+          <mat-card fxFlex="40%;" fxFlex.xs="80%" *ngFor="let invitation of invitations; let i = index;">
+            <mat-card-header>
+              <mat-card-title-group>
+                <mat-card-title>
+                  <a routerLink="/user/{{invitation.user.id}}">{{invitation.user.name}}</a>
+                </mat-card-title>
+                <mat-card-subtitle>
+                  <p>{{invitation.status}}</p>
+                </mat-card-subtitle>
+              </mat-card-title-group>
+              <div class="spacer"></div>
+            </mat-card-header>
+            <mat-card-content>
+              <h3>{{invitation.role.name}}</h3>
+              <p>{{invitation.role.description}}</p>
+              <mat-chip-list>
+                <mat-chip *ngFor="let dep of invitation.role.departments">
+                  <p>{{dep}}</p>
+                </mat-chip>
+              </mat-chip-list>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</div>

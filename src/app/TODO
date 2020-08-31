@@ -1,0 +1,2 @@
+1. Break down user-profile and project-site into subcomponents to enable mat-tab's lazy loading.
+2. Register form (add url and skill selection)

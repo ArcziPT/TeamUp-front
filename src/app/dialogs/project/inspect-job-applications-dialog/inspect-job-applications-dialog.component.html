@@ -1,0 +1,23 @@
+<h2 matDialogTitle>Inspect Job Applications</h2>
+<mat-dialog-content>
+  <div class="posting">
+    <h1>{{posting.posting.name}}</h1>
+    <p>{{posting.role.name}}</p>
+    <!-- TODO -->
+  </div>
+
+  <div class="application">
+    <a routerLink="/user/{{jobApplications[i].user.id}}">{{jobApplications[i].user.name}}</a>
+    <p>{{jobApplications[i].status}}</p>
+  </div>
+
+  <div>
+    <button *ngIf="jobApplications[i].status === 'WAITING'" mat-raised-button color="primary" (click)="updateAppStatus(true)">Accept</button>
+    <button *ngIf="jobApplications[i].status === 'WAITING'" mat-raised-button color="primary" (click)="updateAppStatus(false)">Decline</button>
+  </div>
+
+  <div>
+    <button mat-button (click)="back()">Back</button>
+    <button mat-button (click)="next()">Next</button>
+  </div>
+</mat-dialog-content>

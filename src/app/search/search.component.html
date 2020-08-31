@@ -1,0 +1,71 @@
+<div class="container shift-down">
+  <div fxLayoutAlign="center">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>
+          <mat-form-field>
+            <mat-label>Search</mat-label>
+            <input matInput type="text" [(ngModel)]="searchFor">
+          </mat-form-field>
+          <select [(ngModel)]="type">
+            <option value="user">User</option>
+            <option value="project">Project</option>
+          </select>
+          <button mat-fab color="primary" (click)="newSearch()">
+            <mat-icon>search</mat-icon>
+          </button>
+        </mat-card-title>
+      </mat-card-header>
+    </mat-card>
+  </div>
+
+  <div class="horizontal-spacer"></div>
+
+  <div *ngIf="currentSearchType === 'user'" fxLayout="row" fxLayout.xs="column">
+    <mat-card fxFlex="40%;" fxFlex.xs="80%" *ngFor="let user of userResult">
+      <mat-card-header>
+        <mat-card-title-group>
+          <mat-card-title>
+            <a href="#" routerLink="/user/{{user.user.id}}">{{user.user.name}}</a>
+          </mat-card-title>
+          <mat-card-subtitle>
+            <p>{{user.rating}}</p>
+          </mat-card-subtitle>
+        </mat-card-title-group>
+      </mat-card-header>
+      <mat-card-content>
+        <p>{{user.briefDescription}}</p>
+        <mat-chip-list>
+          <mat-chip *ngFor="let skill of user.skills">
+            <p>{{skill}}</p>
+          </mat-chip>
+        </mat-chip-list>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div *ngIf="currentSearchType === 'project'" fxLayout="row" fxLayout.xs="column">
+    <mat-card fxFlex="40%;" fxFlex.xs="80%" *ngFor="let project of projectResult">
+      <mat-card-header>
+        <mat-card-title-group>
+          <mat-card-title>
+            <a routerLink="/project/{{project.project.id}}">{{project.project.name}}</a>
+          </mat-card-title>
+        </mat-card-title-group>
+        <div class="spacer"></div>
+      </mat-card-header>
+      <mat-card-content>
+        <p>{{project.briefDescription}}</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div class="search-pages">
+    <ng-template [ngIf]="currentPage > 0">
+      <button mat-raised-button color="primary" (click)="changePage(currentPage - 1)">Previous</button>
+    </ng-template>
+    <ng-template [ngIf]="currentPage < totalPages - 1">
+      <button mat-raised-button color="primary" (click)="changePage(currentPage + 1)">Next</button>
+    </ng-template>
+  </div>
+</div>

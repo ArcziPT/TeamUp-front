@@ -1,0 +1,43 @@
+<div class="container shift-down">
+  <div fxLayoutAlign="center">
+    <mat-card>
+      <mat-card-title>
+        <p>Sign In</p>
+      </mat-card-title>
+      <mat-card-content>
+        <mat-form-field appearance="fill">
+          <mat-label>Username</mat-label>
+          <input matInput type="text" [(ngModel)]="user.username">
+        </mat-form-field>
+        <br>
+        <mat-form-field appearance="fill">
+          <mat-label>Enter your password</mat-label>
+          <input matInput [type]="hide ? 'password' : 'text'" [(ngModel)]="user.password">
+          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                  [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+        </mat-form-field>
+        <br>
+        <mat-form-field appearance="fill">
+          <mat-label>Brief Description</mat-label>
+          <input matInput type="text" [(ngModel)]="user.briefDescription">
+        </mat-form-field>
+        <br>
+        <mat-form-field appearance="fill">
+          <mat-label>Description</mat-label>
+          <input matInput type="text" [(ngModel)]="user.description">
+        </mat-form-field>
+        <br>
+        <h3>URLs</h3>
+        <app-url-edit [urls]="user.urls"></app-url-edit>
+        <br>
+        <h3>Skills</h3>
+        <app-skill-edit [skills]="user.skills"></app-skill-edit>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="submit()">REGISTER</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>
