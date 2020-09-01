@@ -6,6 +6,7 @@ import {catchError, map} from 'rxjs/operators';
 import {BehaviorSubject, Observable, throwError} from 'rxjs';
 import {Config} from '../config';
 import {INameAndID} from '../models/data/INameAndID';
+import {Router} from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,7 @@ export class UserSessionManagerService {
   public userSession: Observable<User>;
   private currentUserSession: BehaviorSubject<User>;
 
-  constructor(private client: HttpClient) {
+  constructor(private client: HttpClient, private router: Router) {
     this.currentIsSigned = new BehaviorSubject<boolean>(false);
     this.currentUserSession = new BehaviorSubject<User>(null);
 
@@ -59,6 +60,7 @@ export class UserSessionManagerService {
     this.currentUserSession.next(null);
     this.currentIsSigned.next(false);
     localStorage.removeItem('currentUser');
+    this.router.navigateByUrl('/');
   }
 
   get token(): string {
