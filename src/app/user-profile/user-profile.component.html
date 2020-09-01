@@ -36,8 +36,8 @@
       </mat-tab>
       <mat-tab label="Projects">
         <button mat-button (click)="createProject()">Create Project</button>
-        <div fxLayout="row" fxLayout.xs="column" *ngIf="projects">
-          <mat-card fxFlex="40%;" fxFlex.xs="80%" *ngFor="let project of projects">
+        <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="16px" *ngIf="projects">
+          <mat-card fxFlex="40%" fxFlex.xs="80%" *ngFor="let project of projects">
             <mat-card-header>
               <mat-card-title-group>
                 <mat-card-title>
@@ -62,7 +62,7 @@
         </div>
       </mat-tab>
       <mat-tab *ngIf="isCurrentUser" label="Invitations">
-        <div fxLayout="row" fxLayout.xs="column" *ngIf="invitations">
+        <div fxLayout="row wrap" fxLayout.xs="column"  fxLayoutAlign="center" fxLayoutGap="16px" *ngIf="invitations">
           <mat-card fxFlex="40%;" fxFlex.xs="80%" *ngFor="let invitation of invitations; let i = index;">
             <mat-card-header>
               <mat-card-title-group>

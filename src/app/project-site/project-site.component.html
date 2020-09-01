@@ -27,7 +27,7 @@
         </mat-card>
       </mat-tab>
       <mat-tab label="Members">
-        <div fxLayout="row" fxLayout.xs="column" *ngIf="members">
+        <div fxLayout="row wrap" fxLayout.xs="column"  fxLayoutAlign="center" fxLayoutGap="16px" *ngIf="members">
           <mat-card fxFlex="40%;" fxFlex.xs="80%" *ngFor="let member of members; let i = index;">
             <mat-card-header>
               <mat-card-title-group>
@@ -56,7 +56,7 @@
       </mat-tab>
       <mat-tab label="Looking For">
         <button *ngIf="isAdmin" mat-button (click)="addPosting()">Add Posting</button>
-        <div fxLayout="row" fxLayout.xs="column" *ngIf="postings">
+        <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="16px" *ngIf="postings">
           <mat-card fxFlex="40%;" fxFlex.xs="80%" *ngFor="let posting of postings; let i = index;">
             <mat-card-header>
               <mat-card-title-group>
@@ -93,7 +93,7 @@
         </mat-chip-list>
       </mat-tab>
       <mat-tab *ngIf="isAdmin && invitations" label="Invitations">
-        <div fxLayout="row" fxLayout.xs="column">
+        <div fxLayout="row wrap" fxLayout.xs="column"  fxLayoutAlign="center" fxLayoutGap="16px">
           <mat-card fxFlex="40%;" fxFlex.xs="80%" *ngFor="let invitation of invitations; let i = index;">
             <mat-card-header>
               <mat-card-title-group>

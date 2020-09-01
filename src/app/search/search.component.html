@@ -21,7 +21,7 @@
 
   <div class="horizontal-spacer"></div>
 
-  <div *ngIf="currentSearchType === 'user'" fxLayout="row" fxLayout.xs="column">
+  <div *ngIf="currentSearchType === 'user'" fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="16px">
     <mat-card fxFlex="40%;" fxFlex.xs="80%" *ngFor="let user of userResult">
       <mat-card-header>
         <mat-card-title-group>
@@ -44,7 +44,7 @@
     </mat-card>
   </div>
 
-  <div *ngIf="currentSearchType === 'project'" fxLayout="row" fxLayout.xs="column">
+  <div *ngIf="currentSearchType === 'project'" fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="16px">
     <mat-card fxFlex="40%;" fxFlex.xs="80%" *ngFor="let project of projectResult">
       <mat-card-header>
         <mat-card-title-group>
