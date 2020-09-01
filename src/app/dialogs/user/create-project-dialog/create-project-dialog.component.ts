@@ -5,6 +5,7 @@ import {ProjectService} from '../../../services/project.service';
 import {MatDialogRef} from '@angular/material/dialog';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {MatChipInputEvent} from '@angular/material/chips';
+import {IStatus} from '../../../models/data/IStatus';
 
 @Component({
   selector: 'app-create-project-dialog',
@@ -37,13 +38,18 @@ export class CreateProjectDialogComponent implements OnInit{
       return;
     }
 
-    this.projectService.createProject(this.project).subscribe(status => {
-      if (status.status){
-        this.dialogRef.close({result: true});
-      } else {
-        alert('Error');
+    this.projectService.createProject(this.project).subscribe(
+      status => {
+        if (status.status){
+          this.dialogRef.close({result: true});
+        } else {
+          alert('Error');
+        }
+      },
+      (error: IStatus) => {
+        alert(error.msg);
       }
-    });
+    );
   }
 
   close(): void {

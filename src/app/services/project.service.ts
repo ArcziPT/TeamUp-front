@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import {Observable, throwError} from 'rxjs';
 import {IProject} from '../models/data/IProject';
 import {Config} from '../config';
 import {IProjectInvitation} from '../models/data/IProjectInvitation';
@@ -13,6 +13,7 @@ import {SearchResult} from '../models/data/SearchResult';
 import {INameAndID} from '../models/data/INameAndID';
 import {IStatus} from '../models/data/IStatus';
 import {IProjectCreate} from '../models/data/IProjectCreate';
+import {catchError} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +27,9 @@ export class ProjectService {
   }
 
   createProject(project: IProjectCreate): Observable<IStatus>{
-    return this.client.post<IStatus>(`${Config.apiURL}/project/`, project);
+    return this.client.post<IStatus>(`${Config.apiURL}/project/`, project).pipe(catchError(err => {
+      return throwError(err.error);
+    }));
   }
 
   getMembers(id: number): Observable<IProjectMember[]> {
