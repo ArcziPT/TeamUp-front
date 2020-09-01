@@ -12,11 +12,11 @@ import {Config} from '../config';
   styleUrls: ['./search.component.css']
 })
 export class SearchComponent implements OnInit {
-  public searchFor: string;
+  public searchFor = '';
   public type: string;
 
   public currentSearchType: string;
-  public currentSearchFor: string;
+  public currentSearchFor = '';
   public currentPage = 0;
   public totalPages: number;
 
