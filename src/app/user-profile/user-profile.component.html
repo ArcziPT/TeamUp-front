@@ -11,7 +11,9 @@
           <mat-chip *ngFor="let skill of user.skills">{{skill}}</mat-chip>
         </mat-chip-list>
         <mat-divider></mat-divider>
-        <!-- TODO: urls -->
+        <mat-chip-list>
+          <mat-chip *ngFor="let url of user.urls"><a rel="" href="https://{{url}}">{{url}}</a></mat-chip>
+        </mat-chip-list>
       </mat-card-content>
       <mat-card-actions>
         <button mat-mini-fab color="primary" *ngIf="!isCurrentUser" [ngClass]="{'rated': isRated == true, 'not-rated': isRated == false}" (click)="rateUser()">
@@ -31,6 +33,9 @@
           </mat-card-title>
           <mat-card-content>
             <p>{{user.description}}</p>
+            <mat-chip-list>
+              <mat-chip *ngFor="let url of user.urls"><a rel="" href="https://{{url}}">{{url}}</a></mat-chip>
+            </mat-chip-list>
           </mat-card-content>
         </mat-card>
       </mat-tab>

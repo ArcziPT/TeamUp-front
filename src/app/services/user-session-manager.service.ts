@@ -1,12 +1,10 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpParams} from '@angular/common/http';
-import {IUser} from '../models/data/IUser';
-import {User} from '../models/User';
-import {catchError, map} from 'rxjs/operators';
-import {BehaviorSubject, Observable, throwError} from 'rxjs';
-import {Config} from '../config';
-import {INameAndID} from '../models/data/INameAndID';
-import {Router} from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { User } from '../models/User';
+import { map } from 'rxjs/operators';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { Config } from '../config';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
