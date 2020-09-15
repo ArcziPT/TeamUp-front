@@ -14,6 +14,7 @@ import {INameAndID} from '../models/data/INameAndID';
 import {IStatus} from '../models/data/IStatus';
 import {IProjectCreate} from '../models/data/IProjectCreate';
 import {catchError} from 'rxjs/operators';
+import {ProjectSearchParams} from '../models/util/ProjectSearchParams';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +25,14 @@ export class ProjectService {
 
   getProject(id: number): Observable<IProject>{
     return this.client.get<IProject>(`${Config.apiURL}/project/${id.toString()}`);
+  }
+
+  search(projectParams: ProjectSearchParams, page: number, size: number): Observable<SearchResult<IProjectMin>> {
+    const params = new HttpParams()
+      .set('name', `${projectParams.name}`)
+      .set('members', `${projectParams.members}`);
+
+    return this.client.get<SearchResult<IProjectMin>>(`${Config.apiURL}/project/search`, {params});
   }
 
   createProject(project: IProjectCreate): Observable<IStatus>{
@@ -50,18 +59,6 @@ export class ProjectService {
 
   createJobPosting(id: number, jobPosting: IJobPostingCreate): Observable<IStatus> {
     return this.client.post<IStatus>(`${Config.apiURL}/project/${id.toString()}/postings`, jobPosting, {observe: 'body'});
-  }
-
-  search(searchBy: string, pattern: string, sortBy: string, order: string, page: number): Observable<SearchResult<IProjectMin>> {
-    const params = new HttpParams()
-      .set('searchBy', `${searchBy}`)
-      .set('pattern', `${pattern}`)
-      .set('sortBy', `${sortBy}`)
-      .set('order', `${order}`)
-      .set('page', `${page.toString()}`)
-      .set('size', `${Config.pageSize}`);
-
-    return this.client.get<SearchResult<IProjectMin>>(`${Config.apiURL}/project/search`, {params});
   }
 
   isAdmin(id: number): Observable<IStatus>{

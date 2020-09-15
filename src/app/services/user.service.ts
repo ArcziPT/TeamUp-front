@@ -13,6 +13,7 @@ import {SearchResult} from '../models/data/SearchResult';
 import {INameAndID} from '../models/data/INameAndID';
 import {IStatus} from '../models/data/IStatus';
 import {IUserRegister} from '../models/data/IUserRegister';
+import {UserSearchParams} from '../models/util/UserSearchParams';
 
 @Injectable({
   providedIn: 'root'
@@ -61,14 +62,13 @@ export class UserService {
     return this.client.get<IProjectInvitation[]>(`${Config.apiURL}/user/invitations`);
   }
 
-  search(searchBy: string, pattern: string, sortBy: string, order: string, page: number): Observable<SearchResult<IUserMin>> {
+  search(userPrams: UserSearchParams, page: number, size: number): Observable<SearchResult<IUserMin>> {
     const params = new HttpParams()
-      .set('searchBy', `${searchBy}`)
-      .set('pattern', `${pattern}`)
-      .set('sortBy', `${sortBy}`)
-      .set('order', `${order}`)
-      .set('page', `${page.toString()}`)
-      .set('size', `${Config.pageSize}`);
+      .set('username', `${userPrams.username}`)
+      .set('projects', `${userPrams.projects}`)
+      .set('skills', `${userPrams.skills}`)
+      .set('page', `${page}`)
+      .set('size', `${size}`);
 
     return this.client.get<SearchResult<IUserMin>>(`${Config.apiURL}/user/search`, {params});
   }

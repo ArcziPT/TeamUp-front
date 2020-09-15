@@ -6,6 +6,8 @@ import {Observable} from 'rxjs';
 import {IJobApplication} from '../models/data/IJobApplication';
 import {SearchResult} from '../models/data/SearchResult';
 import {IStatus} from '../models/data/IStatus';
+import {PostingSearchParams} from '../models/util/PostingSearchParams';
+import {IJobPostingMin} from '../models/data/IJobPostingMin';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +18,16 @@ export class JobPostingService {
 
   getJobPosting(id: number): Observable<IJobPosting>{
     return this.client.get<IJobPosting>(`${Config.apiURL}/postings/${id.toString()}`);
+  }
+
+  search(postingParams: PostingSearchParams, page: number, size: number): Observable<SearchResult<IJobPostingMin>> {
+    const params = new HttpParams()
+      .set('title', `${postingParams.title}`)
+      .set('project', `${postingParams.project}`)
+      .set('roleName', `${postingParams.roleName}`)
+      .set('departments', `${postingParams.departments}`);
+
+    return this.client.get<SearchResult<IJobPostingMin>>(`${Config.apiURL}/postings/search`, {params});
   }
 
   getApplications(id: number, page: number): Observable<SearchResult<IJobApplication>> {
