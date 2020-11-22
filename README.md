@@ -2,6 +2,15 @@
 
 Frontend of web app for people/organistations looking for contributors for their projects.
 
+### Home Page
+![Alt text](img/home.png?raw=true "Home Page")
+
+### User Profile
+![Alt text](img/profile.png?raw=true "User Profile")
+
+### Search
+![Alt text](img/search.png?raw=true "Find user, who is a part of PROJECT123")
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.0.5.
 
 ## Development server
